@@ -29,6 +29,8 @@ public static void main(String[] args) {
         System.out.println("User not Found Try Again");
         }
         }while(userFound==false);//do loop while person enters valid username
+        
+         
          
          int tryMax=0;//to count the tries and exit when user exceed the 3 tries
          int tryCount=3;//to count how many times user tries to guess password and print it out to them
@@ -86,3 +88,14 @@ public static void main(String[] args) {
         }while(exit==false);
     }
 }
+/*	**create  6 users  each user needs to have name password balance** overdraft(*overdraft for  3 users only* * no limit for overdraft*)
+	do method for login that would return the position of the name in array(no more than 3 attempts to log in**
+	** display menu with options (view bank statement, change password**, change name deposit money, withdraw money, exit. loop until user  chooses to exit**
+	array must be updated  when user deposits or withdraws money
+	users can only withraw more money than they have in their bank account if they have overdraft facility
+( cannot be the password that was used before)
+( cannot be more than 20 characters)
+
+// Francis  deposit , withdraw  , statement overdraft
+//Juste login menu,  password,  change username
+*/
