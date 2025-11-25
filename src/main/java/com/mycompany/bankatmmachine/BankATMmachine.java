@@ -10,7 +10,7 @@ public class BankATMmachine {
         String[] usernames = {"Theo", "Mira", "Jasper", "John", "Amy", "Anna",}; // Array for valid username
         String[] passwords = {"pass1", "pass2", "pass3", "pass4", "pass4", "pass5"}; // Array for valid passwords
         double[] balances = {1200.50, 25070.80, 5060.70, 15000.10, 7050.15, 2970.30}; // Array for balances matching user & pass indexes
-        boolean[] overdraft = {false, true, true, false, false}; // overdraft facility assigned to users
+        boolean[] overdraft = {false, true, true, false, false, true}; // overdraft facility assigned to users
 
         int index = LogIn(usernames, passwords); // when login is successful, the index of username as password arrays is assigned to variable "index", this makes finding matching balance, etc easier
 
@@ -208,7 +208,7 @@ public class BankATMmachine {
     static void deposit(Scanner input, double[] balances, boolean[] overdraft, int index) {
 
         double depositAmount;
-        boolean exitDep = false;//?? whats that for if u dont use it
+        boolean exitDep = false;
 
         System.out.println("Your current balance is: " + balances[index]); // print current user balance
 
