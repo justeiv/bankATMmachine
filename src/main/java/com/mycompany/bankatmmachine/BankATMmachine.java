@@ -54,6 +54,7 @@ public static void main(String[] args) {
          }while(validLogin==false&&tryMax<3);
        return  loggedUserIndex;  
     }
+    
     static void menu( String[]usernames, String[] passwords, double[] balances,int index){
         int choice;
         boolean exit =false;
@@ -87,7 +88,28 @@ public static void main(String[] args) {
         }
         }while(exit==false);
     }
+    
+    static void password(String[]usernames,String[]passwords, int index){
+        String currPassword = null;
+        String newPasswords= null;
+        boolean currpass =false;
+        do{
+        System.out.println("Enter Your Current Password");
+        currPassword=input.nextLine();
+        if(currPassword.equals(passwords[index])){
+         currpass=true;
+            System.out.println("");
+        }
+        }while(currpass==false);
+    }
+
+
+
 }
+    
+
+
+
 /*	**create  6 users  each user needs to have name password balance** overdraft(*overdraft for  3 users only* * no limit for overdraft*)
 	do method for login that would return the position of the name in array(no more than 3 attempts to log in**
 	** display menu with options (view bank statement, change password**, change name deposit money, withdraw money, exit. loop until user  chooses to exit**
@@ -97,5 +119,5 @@ public static void main(String[] args) {
 ( cannot be more than 20 characters)
 
 // Francis  deposit , withdraw  , statement overdraft
-//Juste login menu,  password,  change username
+//Juste *login, *menu, change password,  change username
 */
