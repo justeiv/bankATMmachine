@@ -5,7 +5,9 @@ import java.util.Scanner;
 public class BankATMmachine {
 
     static Scanner input = new Scanner(System.in);  // create "input" scanner for user input
-
+    static final String ANSI_RESET = "\u001B[0m";
+    static final String ANSI_RED = "\u001B[31m";
+    static final String ANSI_GREEN = "\u001B[32m";
     public static void main(String[] args) {
         String[] usernames = {"Theo", "Mira", "Jasper", "John", "Amy", "Anna",}; // Array for valid username
         String[] passwords = {"pass1", "pass2", "pass3", "pass4", "pass4", "pass5"}; // Array for valid passwords
@@ -191,7 +193,7 @@ public class BankATMmachine {
             } else {
                 usernames[index] = newName;// IF NAME IS VALID OVERWRITE CURRENT USERNAME WITH NEW USERNAME
                 validChange = true;// CHANGE  VALID CHANGE TO TRUE TO EXIT LOOP
-                System.out.println(ANSI_GREN+"Username was changed succesfully"+ANSI_RESET);// DISPLAY MESSAGE THAT NAME WAS CHANGED  SUCCESFULY
+                System.out.println(ANSI_GREEN+"Username was changed succesfully"+ANSI_RESET);// DISPLAY MESSAGE THAT NAME WAS CHANGED  SUCCESFULY
                 System.out.println("Your new Username is : " + usernames[index]);// DISPLAY NEW USERNAME
                 return;
             }
