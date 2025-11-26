@@ -44,7 +44,7 @@ public class BankATMmachine {
                 }
             }
             if (!userFound) { // if user not found print message and continue loop
-                System.out.println("User not Found Try Again"); // message notifying user username not found
+                System.out.println(ANSI_RED+"User not Found Try Again"+ANSI_RESET); // message notifying user username not found ADDED COLOUR
             }
         } while (userFound == false); // do loop while person enters valid username
 
@@ -54,16 +54,16 @@ public class BankATMmachine {
             System.out.print("Enter Password: "); // ask user to enter username
             pass = input.nextLine(); // input for password to compare it to the original password
             if (pass.equals(passwords[loggedUserIndex])) {// if password matches quit the loop
-                System.out.println("Login was succesful"); // user notified of successful login
+                System.out.println(ANSI_GREEN+"Login was succesful"+ANSI_RESET); // user notified of successful login ADDED COLOUR
                 validLogin = true; // validLogin switch to true
                 break; // exit loop
             } else {
                 tryMax++;//if passwords doesnt match increaase the max count
                 tryCount--;// if password doesnt match decrease tries 
-                System.out.println("Incorrect Password, try again"); // user notified incorrect password
+                System.out.println(ANSI_RED+"Incorrect Password, try again"+ANSI_RED); // user notified incorrect password ADDED COLOUR
                 System.out.println("You have " + tryCount + " tries"); // print out to user ow many tries they have left
                 if (tryMax >= 3) { // if user exceeds the try limit program stops
-                    System.out.println("You exceeded the maximum allowed tries. Contact the bank "); // user notified of maximum login attempt
+                    System.out.println(ANSI_RED+"You exceeded the maximum allowed tries. Contact the bank "+ANSI_RESET); // user notified of maximum login attempt ADDED COLOUR
                     System.exit(0); // closes entire program after max tries exceeded
                 }
             }
@@ -111,7 +111,7 @@ public class BankATMmachine {
                     exit = true; // change exit to true
 
                 default: // if user input doesn't equal 1-6, print invalid input
-                    System.out.println("Invalid input");
+                    System.out.println(ANSI_RED+"Invalid input"+ANSI_RESET);//PRINT OUT THAT INPUT WAS NOT VALID + COL0UR
             }
         } while (exit == false); // continue looping until exit = true
     }
@@ -132,10 +132,10 @@ public class BankATMmachine {
             currPassword = input.nextLine(); // assign currPassword to user input
             if (currPassword.equals(passwords[index])) { // checking if currPassword matches existing password
                 currPassMatch = true; // change boolean to true if password is correct to exit loop
-                System.out.println("Pass is correct"); // display that the password is correct
+                System.out.println(ANSI_GREEN+"Pass is correct"+ANSI_RESET); // display that the password is correct ADDED COLOUR
                 break; // exit loop
             } else {
-                System.out.println("Incorrect Password. Try again"); // if password is incorrect display incorrect password try again and continue the loop
+                System.out.println(ANSI_RED+"Incorrect Password. Try again"+ANSI_RESET); // if password is incorrect display incorrect password try again and continue the loop ADDED COLOUR
             }
         } while (currPassMatch == false); // do block of code until password is correct and boolean is changed to true
 
@@ -143,7 +143,7 @@ public class BankATMmachine {
             System.out.println("Enter new password"); // display to user enter new password
             newPassword = input.nextLine(); // assign user input to newPassword
             if (newPassword.equals(passwords[index])) { // compare password to the old one
-                System.out.println("Passwords cannot be same as the old one"); // if password is the same as the old one, display to user password can't be the same as odl one and try again
+                System.out.println(ANSI_RED+"Passwords cannot be same as the old one"+ANSI_RESET); //ADDED COLOUR if password is the same as the old one, display to user password can't be the same as odl one and try again
 
             } else if (!newPassword.equals(passwords[index])) { // if password doesn't match old password, replace old password with new one in array
                 passwords[index] = newPassword; // boolean changed to tre to exit loop
@@ -170,29 +170,29 @@ public class BankATMmachine {
             System.out.println("Enter your current Username");// ask user to enter current username
             currentName = input.nextLine();//input line for user to enter current name
             if (currentName.equals(usernames[index])) {// checking if person entered valid  username
-                System.out.println("Username confirmed");// if username is valid display message username confirmed
+                System.out.println(ANSI_GREEN+"Username confirmed"+ANSI_RESET);//ADDED COLOUR if username is valid display message username confirmed
                 validName = true; // changfin boolean value to true when found
                 break;//exit loop
             } else {
-                System.out.println("Invalid Username. Try again");// if username invalid display invalid username try again
+                System.out.println(ANSI_RED+"Invalid Username. Try again"+ANSI_RESET);//ADDED COLOUR if username invalid display invalid username try again
             }
         }
 
         while (validChange == false) {//loop to change username
             System.out.println("Enter new username");// display to user enter new username
             newName = input.nextLine();//input line to enter new username
-            if (newName.equals(currentName)) {
-                System.out.println("Username cannot be the same as the old one");
+            if (newName.equals(currentName)) {//CHECK IF NAME  EQUALS CURRENT NAME
+                System.out.println(ANSI_RED+"Username cannot be the same as the old one"+ANSI_RESET);//ADDED COLOUR IF NAME IS SAME AS OLD ONE DISPLAY MESSAGE USERNAME CANNOT BE SAME AS OLD ONE 
                 continue;
             }
-            if (newName.length() > 20) {
-                System.out.println("Name cannot have more than 20 characters");
+            if (newName.length() > 20) {// CHECK NAME LENGHT 
+                System.out.println(ANSI_RED+"Name cannot have more than 20 characters"+ANSI_RESET);//ADDED COLOUR IF NAME IS MORE THAN 20 CHAR  DISPLAY MESSAGE THAT IT CANNOT BE MORE THAN 20 CHAR 
 
             } else {
-                usernames[index] = newName;
-                validChange = true;
-                System.out.println("Username was changed succesfully");
-                System.out.println("Your new Username is : " + usernames[index]);
+                usernames[index] = newName;// IF NAME IS VALID OVERWRITE CURRENT USERNAME WITH NEW USERNAME
+                validChange = true;// CHANGE  VALID CHANGE TO TRUE TO EXIT LOOP
+                System.out.println(ANSI_GREN+"Username was changed succesfully"+ANSI_RESET);// DISPLAY MESSAGE THAT NAME WAS CHANGED  SUCCESFULY
+                System.out.println("Your new Username is : " + usernames[index]);// DISPLAY NEW USERNAME
                 return;
             }
         }
@@ -227,7 +227,7 @@ public class BankATMmachine {
     ============================================================================
      */
 
-    /*
+ /*
     ============================================================================
                               Bank Statement // Francis
     ============================================================================
