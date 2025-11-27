@@ -98,11 +98,13 @@ public class BankATMmachine {
                 case 1: //  Francis - Statement Overdraft
 
                 case 2: // Francis - deposit
-                        deposit(balances, overdraft, index);
-                        break;
+                    deposit(balances, overdraft, index); // run deposit method
+                    break; // return to start of menu
                         
                 case 3: // Francis - withdraw
-
+                    withdraw(balances, overdraft, index); // run withdraw method
+                    break; // return to start of menu
+                    
                 case 4: // Juste - change password
                     changePass(usernames, passwords, index);
                     break;
@@ -233,18 +235,44 @@ public class BankATMmachine {
             System.out.println(ANSI_RED + "Something went wrong. Please contact the bank for support" + ANSI_RESET);
         }
     }
-}
+
     /*
     ============================================================================
                               Withdraw // Francis
     ============================================================================
+    */
 
-    // statement display similar to income/expenditure account book
+    static void withdraw(double[] balances, boolean[] overdraft, int index) { // this runs twice in the below method. kept up here to keep code tidy instead of doubling up
+
+        try { // try catch if user input is not valid, print error message and kick user back to menu
+            double withdrawAmount; // create withdraw variable
+
+            System.out.println("Your current balance is: " + balances[index]); // print current user balance
+
+            System.out.print("Enter withdrawal amount: "); // Ask user to enter how much to deposit
+            withdrawAmount = input.nextDouble(); // assign userinput to depositAmount
+            input.nextLine(); // clear user input to avoid conflict
+
+            balances[index] -= withdrawAmount; // add withdrawAmount to user balance and overwrite balance
+
+            System.out.println("Balance: " + balances[index]); // print new user balance
+
+            if (balances[index] < 0) {
+                System.out.println(ANSI_RED + "There is an overdraft on your account. For payment support, contact the bank" + ANSI_GREEN); // if user balance is < 0, print notification in red
+            }
+        } catch (InputMismatchException e) {
+            System.out.println(ANSI_RED + "Something went wrong. Please contact the bank for support" + ANSI_RESET);
+        }
+    }
+
+    
+
+/*   statement display similar to income/expenditure account book
         WITHDRAW 1 | DEPOSIT 1
         WITHDRAW 2 | DEPOSIT 2
         WITHDRAW 3 | DESPOTI 3
         etc etc etc
-     */
+*/
 
     /*
     ============================================================================
@@ -262,3 +290,4 @@ public class BankATMmachine {
 
 
  */
+}
