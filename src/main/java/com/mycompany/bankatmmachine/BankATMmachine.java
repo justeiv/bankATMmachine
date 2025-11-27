@@ -83,6 +83,7 @@ public class BankATMmachine {
     static void menu(String[] usernames, String[] passwords, boolean[] overdraft, double[] balances, int index) {
         int choice=-1; // create choice variable, used for user input in menu
         boolean exit = false; // assume user doesn't want to exit once ATM starts
+        boolean exitDep = false; // assume user doesn't want to exit deposit method from the start of depositOption();
         System.out.println("Welcome " + usernames[index]);// welcome user
         do {
             System.out.println("1.Bank Statement"); // view bank statement option
@@ -104,8 +105,9 @@ public class BankATMmachine {
                 case 1: //  Francis - Statement Overdraft
 
                 case 2: // Francis - deposit
-                    deposit(input, balances, overdraft, index);
-                    break;
+                        deposit(balances, overdraft, index);
+                        break;
+                        
                 case 3: // Francis - withdraw
 
                 case 4: // Juste - change password
@@ -121,7 +123,7 @@ public class BankATMmachine {
                     exit = true; // change exit to true
                     break;
 
-                default: // if user input doesn't equal 1-6, print invalid input
+                default: // if user input doesn't equal 1-6, print invalid input |||||||| IF USER INPUT IS STRING THE PROGRAM CRASHES. FIX PLZZZZZZZZZZZZ-------------------------------------------------------------------
                     System.out.println(ANSI_RED+"Invalid input"+ANSI_RESET);//PRINT OUT THAT INPUT WAS NOT VALID + COL0UR
                     break;
             
@@ -268,34 +270,47 @@ public class BankATMmachine {
                               Deposit // Francis
     ============================================================================
      */
-    static void deposit(Scanner input, double[] balances, boolean[] overdraft, int index) {
+    
+    static void deposit(double[] balances, boolean [] overdraft, int index) { // this runs twice in the below method. kept up here to keep code tidy instead of doubling up
+        
+        try { // try catch if user input is not valid, print error message and kick user back to menu
+            double depositAmount; // create deposit variable
 
-        double depositAmount;
-        boolean exitDep = false;
+            System.out.println("Your current balance is: " + balances[index]); // print current user balance
 
-        System.out.println("Your current balance is: " + balances[index]); // print current user balance
+            System.out.print("Enter deposit amount: "); // Ask user to enter how much to deposit
+            depositAmount = input.nextDouble(); // assign userinput to depositAmount
+            input.nextLine(); // clear user input to avoid conflict
 
-        System.out.print("Enter deposit amount: "); // Ask user to enter how much to deposit
-        depositAmount = input.nextDouble(); // assign userinput to depositAmount
-        input.nextLine(); // clear user input to avoid conflict
+            balances[index] += depositAmount; // add depositAmount to user balance and overwrite balance
 
-        balances[index] += depositAmount; // add depositAmount to user balance and overwrite balance
+            System.out.println("Balance: " + balances[index]); // print new user balance
 
-        System.out.println("Balance: " + balances[index]); // print new user balance
-
+            if (balances[index] < 0) {
+                System.out.println(ANSI_RED + "There is an overdraft on your account. For payment support, contact the bank" + ANSI_GREEN); // if user balance is < 0, print notification in red
+            }
+        } catch (InputMismatchException e) {
+            System.out.println(ANSI_RED + "Something went wrong. Please contact the bank for support" + ANSI_RESET);
+        }
     }
+}
     /*
     ============================================================================
                               Withdraw // Francis
     ============================================================================
+
+    // statement display similar to income/expenditure account book
+        WITHDRAW 1 | DEPOSIT 1
+        WITHDRAW 2 | DEPOSIT 2
+        WITHDRAW 3 | DESPOTI 3
+        etc etc etc
      */
 
- /*
+    /*
     ============================================================================
                               Bank Statement // Francis
     ============================================================================
-     */
-}
+    */
 
 /*	**create  6 users  each user needs to have name password balance** overdraft(*overdraft for  3 users only* * no limit for overdraft*)
 	do method for login that would return the position of the name in array(no more than 3 attempts to log in**
@@ -304,6 +319,8 @@ public class BankATMmachine {
 	users can only withraw more money than they have in their bank account if they have overdraft facility
 ( cannot be the password that was used before)
 ( cannot be more than 20 characters)
+
+
  */
 /*BANK STATEMENT IDEA  you could put the counter in deposit and withdraw  and count how many times 
 it was deposited and withdrawed  then put the amounts in the array
