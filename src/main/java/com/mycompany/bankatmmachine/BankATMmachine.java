@@ -12,8 +12,8 @@ public class BankATMmachine {
     public static void main(String[] args) {
         String[] usernames = {"Theo", "Mira", "Jasper", "John", "Amy", "Anna",}; // Array for valid username
         String[] passwords = {"pass1", "pass2", "pass3", "pass4", "pass4", "pass5"}; // Array for valid passwords
-        double[] balances = {1200.50, 25070.80, 5060.70, 15000.10, 7050.15, 2970.30}; // Array for balances matching user & pass indexes
-        boolean[] overdraft = {false, true, true, false, false, true}; // overdraft facility assigned to users
+        double[] balances = {1200.50, -25070.80, 5060.70, 15000.10, 7050.15, 2970.30}; // Array for balances matching user & pass indexes
+        boolean[] overdraft = {false, false, true, false, false, true}; // overdraft facility assigned to users
 
         int index = LogIn(usernames, passwords); // when login is successful, the index of username as password arrays is assigned to variable "index", this makes finding matching balance, etc easier
 
@@ -98,13 +98,17 @@ public class BankATMmachine {
                 case 1: //  Francis - Statement Overdraft
 
                 case 2: // Francis - deposit
-                    deposit(balances, overdraft, index); // run deposit method
+                    deposit(balances, index); // run deposit method
                     break; // return to start of menu
                         
                 case 3: // Francis - withdraw
-                    withdraw(balances, overdraft, index); // run withdraw method
-                    break; // return to start of menu
-                    
+                    if (overdraft[index] == false && balances[index] < 0) {
+                        System.out.println(ANSI_RED + "You balance is in overdraft. Please ammend to withdraw or contact the bank for support" + ANSI_RESET);
+                        break;
+                    } else {
+                        withdraw(balances, index); // run withdraw method
+                        break; // return to start of menu
+                    }
                 case 4: // Juste - change password
                     changePass(usernames, passwords, index);
                     break;
@@ -213,7 +217,7 @@ public class BankATMmachine {
     ============================================================================
      */
     
-    static void deposit(double[] balances, boolean [] overdraft, int index) { // this runs twice in the below method. kept up here to keep code tidy instead of doubling up
+    static void deposit(double[] balances, int index) { // this runs twice in the below method. kept up here to keep code tidy instead of doubling up
         
         try { // try catch if user input is not valid, print error message and kick user back to menu
             double depositAmount; // create deposit variable
@@ -242,7 +246,7 @@ public class BankATMmachine {
     ============================================================================
     */
 
-    static void withdraw(double[] balances, boolean[] overdraft, int index) { // this runs twice in the below method. kept up here to keep code tidy instead of doubling up
+    static void withdraw(double[] balances, int index) { // this runs twice in the below method. kept up here to keep code tidy instead of doubling up
 
         try { // try catch if user input is not valid, print error message and kick user back to menu
             double withdrawAmount; // create withdraw variable
