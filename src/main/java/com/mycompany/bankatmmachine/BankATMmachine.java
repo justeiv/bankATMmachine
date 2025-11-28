@@ -231,6 +231,12 @@ public class BankATMmachine {
             }
         }
 
+        
+    /*
+    ============================================================================
+                            confirm username// Juste
+    ============================================================================
+     */
     }
     static boolean confirm(String[] usernames, String[] passwords, int index, String newName) {// small method to confirm the username change
         String answer = null;// to store yes or no answer
