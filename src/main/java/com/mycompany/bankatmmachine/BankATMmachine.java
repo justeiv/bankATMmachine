@@ -7,10 +7,10 @@ import java.util.Scanner;
 public class BankATMmachine {
 
     static Scanner input = new Scanner(System.in);  // create "input" scanner for user input
-    static final String ANSI_RESET = "\u001B[0m";
-    static final String ANSI_RED = "\u001B[31m";
-    static final String ANSI_YELLOW = "\u001B[33m";
-    static final String ANSI_GREEN = "\u001B[32m";
+    static final String ANSI_RESET = "\u001B[0m"; // create variable to reset text colour
+    static final String ANSI_RED = "\u001B[31m"; // create variable to change text colour to red
+    static final String ANSI_YELLOW = "\u001B[33m"; // create variable to change text colour to yellow
+    static final String ANSI_GREEN = "\u001B[32m"; // create variable to change text colour to green
     static ArrayList<Double> debitStatement = new ArrayList<Double>();
     static ArrayList<Double> creditStatement = new ArrayList<Double>();
 
@@ -153,7 +153,7 @@ public class BankATMmachine {
         String currPassword = null; // start current password as null to avoid conflicts
         String newPassword = null; // start new password as null to avoid conflicts
         boolean currPassMatch = false; // assume password starts as incorrect
-        boolean newPassMatch = false;
+        boolean newPassMatch = false; // assume new passwords don't match from beginning
 
         do {
             System.out.print("Enter Your Current Password: "); // ask user to enter current password
