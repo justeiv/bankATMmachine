@@ -109,7 +109,7 @@ public class BankATMmachine {
                     } catch (Exception e) {
                         System.out.println(ANSI_RED + "There was an unexpected issue. If the issue persists, please contact the bank for support" + ANSI_RESET);
                     }
-                    System.out.println(ANSI_YELLOW + "Press enter to continue" + ANSI_RESET);
+                    System.out.println(ANSI_YELLOW + "Press enter to continue" + ANSI_RESET); // notify user to press enter to continue
                     input.nextLine(); // clear user input to avoid conflict
                     break; // return to start of menu
                     
@@ -122,7 +122,7 @@ public class BankATMmachine {
                         System.out.println(ANSI_RED + "Your balance is in overdraft. Please ammend to withdraw or contact the bank for support" + ANSI_RESET);
                         break;
                     } else {
-                        withdraw(balances, index); // run withdraw method
+                        withdraw(balances, overdraft, index); // run withdraw method
                         break; // return to start of menu
                     }
                 case 4: // Juste - change password
@@ -245,11 +245,11 @@ public class BankATMmachine {
             depositAmount = input.nextDouble(); // assign user input to depositAmount
             creditStatement.add(depositAmount); // add depositAmount to creditStatement array list
 
+            input.nextLine(); // clear user input to avoid conflicts
+
             balances[index] += depositAmount; // add depositAmount to user balance and overwrite balance
 
             System.out.println("\nUpdated Balance: " + balances[index] +"\n"); // print new user balance
-
-            input.nextLine(); // clear user input to avoid conflicts
             
             if (balances[index] < 0) { // if balance is less than 0, print notification for user
                 System.out.println(ANSI_RED + "There is an overdraft on your account. For payment support, contact the bank" + ANSI_GREEN); // if user balance is < 0, print notification in red
@@ -265,7 +265,7 @@ public class BankATMmachine {
     ============================================================================
     */
 
-    static void withdraw(double[] balances, int index) { // method giving user the ability to debit their account
+    static void withdraw(double[] balances, boolean[] overdraft, int index) { // method giving user the ability to debit their account
 
         try { // try catch if user input is not valid, print error message and kick user back to menu
             double withdrawAmount; // create withdraw variable
@@ -275,11 +275,15 @@ public class BankATMmachine {
             System.out.print("Enter withdrawal amount: "); // Ask user to enter how much to deposit
             withdrawAmount = input.nextDouble(); // assign userinput to depositAmount
             debitStatement.add(withdrawAmount); // add withdrawAmount to debitStatement array list
-//            System.out.println(ANSI_YELLOW + "Press enter to continue" + ANSI_RESET); // notify user to press enter to continue. clears the line in the background
-            input.nextLine(); // clear user input to avoid conflict
 
-            balances[index] -= withdrawAmount; // add withdrawAmount to user balance and overwrite balance
+//            input.nextLine(); // clear user input to avoid conflict
 
+            if(withdrawAmount > balances[index] && overdraft[index] == false) { // if user doesn't have overdraft perms and tries withdrawing more than their balance, print below notification
+                System.out.println(ANSI_RED + "\nInsufficient funds\n" + ANSI_RESET); // user notified of insufficient funds
+                return; // return to menu
+            } else {
+                balances[index] -= withdrawAmount; // add withdrawAmount to user balance and overwrite balance
+            }
             System.out.println("\nUpdated Balance: " + balances[index] + "\n"); // print new user balance
 
             if (balances[index] < 0) { // check if the user balance is less than 0
