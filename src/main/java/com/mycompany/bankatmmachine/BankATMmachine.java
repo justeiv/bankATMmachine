@@ -10,14 +10,15 @@ public class BankATMmachine {
     static final String ANSI_RED = "\u001B[31m";
     static final String ANSI_GREEN = "\u001B[32m";
     public static void main(String[] args) {
-        String[] usernames = {"Theo", "Mira", "Jasper", "John", "Amy", "Anna",}; // Array for valid username
-        String[] passwords = {"pass1", "pass2", "pass3", "pass4", "pass4", "pass5"}; // Array for valid passwords
-        double[] balances = {1200.50, -25070.80, 5060.70, 15000.10, 7050.15, 2970.30}; // Array for balances matching user & pass indexes
-        boolean[] overdraft = {false, false, true, false, false, true}; // overdraft facility assigned to users
+        
+    String[] usernames = {"Theo", "Mira", "Jasper", "John", "Amy", "Anna",}; // Array for valid username
+    String[] passwords = {"pass1", "pass2", "pass3", "pass4", "pass4", "pass5"}; // Array for valid passwords
+    double[] balances = {-1200.50, 25070.80, 5060.70, 15000.10, 7050.15, 2970.30}; // Array for balances matching user & pass indexes
+    boolean[] overdraft = {false, true, true, false, false, true}; // overdraft facility assigned to users        
 
-        int index = LogIn(usernames, passwords); // when login is successful, the index of username as password arrays is assigned to variable "index", this makes finding matching balance, etc easier
+    int index = LogIn(usernames, passwords); // when login is successful, the index of username as password arrays is assigned to variable "index", this makes finding matching balance, etc easier
 
-        menu(usernames, passwords, overdraft, balances, index); // run menu method after successful login
+    menu(usernames, passwords, overdraft, balances, index); // run menu method after successful login
     }
 
     /*
