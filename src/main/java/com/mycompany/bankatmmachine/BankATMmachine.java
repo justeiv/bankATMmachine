@@ -288,16 +288,32 @@ public class BankATMmachine {
     ============================================================================
     */
     static void bankStatement() {
-        System.out.println("-=== Please see your recent transactions below ===-");
+        System.out.println("\n ===================================================");
+        System.out.println(" -=== Please see your recent transactions below ===- \n");
+
+        // Credit Section
         System.out.println("\t\t -==Credit==-");
-        for(int i = 0; i < creditStatement.size(); i++) {
-            System.out.println("Transaction " + (i+1) + ": " + ANSI_GREEN + creditStatement.get(i) + ANSI_RESET);
+        if (creditStatement.isEmpty()) {
+            System.out.println("No recent credit transactions");
+        } else {
+            for (int i = 0; i < creditStatement.size(); i++) {
+                System.out.println("Transaction " + (i + 1) + ": " + ANSI_GREEN + creditStatement.get(i) + ANSI_RESET);
+            }
         }
+
+        // Debit Section
         System.out.println("\t\t -==Debit==-");
-        for (int i = 0; i < debitStatement.size(); i++) {
-            System.out.println("Transaction " + (i + 1) + ": -" + ANSI_RED + debitStatement.get(i) + ANSI_RESET);
+        if (debitStatement.isEmpty()) {
+            System.out.println("No recent debit transactions");
+        } else {
+            for (int i = 0; i < debitStatement.size(); i++) {
+                System.out.println("Transaction " + (i + 1) + ": -" + ANSI_RED + debitStatement.get(i) + ANSI_RESET);
+            }
         }
+
+        System.out.println("\n===================================================");
     }
+
 /*	**create  6 users  each user needs to have name password balance** overdraft(*overdraft for  3 users only* * no limit for overdraft*)
 	do method for login that would return the position of the name in array(no more than 3 attempts to log in**
 	** display menu with options (view bank statement, change password**, change name deposit money, withdraw money, exit. loop until user  chooses to exit**
