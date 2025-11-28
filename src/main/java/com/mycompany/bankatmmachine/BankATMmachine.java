@@ -9,6 +9,7 @@ public class BankATMmachine {
     static Scanner input = new Scanner(System.in);  // create "input" scanner for user input
     static final String ANSI_RESET = "\u001B[0m";
     static final String ANSI_RED = "\u001B[31m";
+    static final String ANSI_YELLOW = "\u001B[33m";
     static final String ANSI_GREEN = "\u001B[32m";
     static ArrayList<Double> debitStatement = new ArrayList<Double>();
     static ArrayList<Double> creditStatement = new ArrayList<Double>();
@@ -90,7 +91,7 @@ public class BankATMmachine {
         int choice; // create choice variable, used for user input in menu
         boolean exit = false; // assume user doesn't want to exit once ATM starts
         boolean exitDep = false; // assume user doesn't want to exit deposit method from the start of depositOption();
-        System.out.println("Welcome " + usernames[index]);// welcome user
+        System.out.println("\nWelcome " + usernames[index]);// welcome user
         do {
             System.out.println("1.Bank Statement"); // view bank statement option
             System.out.println("2.Deposit"); // deposit money option
@@ -108,6 +109,7 @@ public class BankATMmachine {
                     } catch (Exception e) {
                         System.out.println(ANSI_RED + "There was an unexpected issue. If the issue persists, please contact the bank for support" + ANSI_RESET);
                     }
+                    System.out.println(ANSI_YELLOW + "Press enter to continue" + ANSI_RESET);
                     input.nextLine(); // clear user input to avoid conflict
                     break; // return to start of menu
                     
@@ -237,21 +239,22 @@ public class BankATMmachine {
         try { // try catch if user input is not valid, print error message and kick user back to menu
             double depositAmount; // create deposit variable
 
-            System.out.println("Your current balance is: " + balances[index]); // print current user balance
+            System.out.println("\nYour current balance is: " + balances[index]); // print current user balance
 
             System.out.print("Enter deposit amount: "); // Ask user to enter how much to deposit
             depositAmount = input.nextDouble(); // assign user input to depositAmount
             creditStatement.add(depositAmount); // add depositAmount to creditStatement array list
-            input.nextLine(); // clear user input to avoid conflict
 
             balances[index] += depositAmount; // add depositAmount to user balance and overwrite balance
 
-            System.out.println("Balance: " + balances[index]); // print new user balance
+            System.out.println("\nUpdated Balance: " + balances[index] +"\n"); // print new user balance
 
-            if (balances[index] < 0) {
+            input.nextLine(); // clear user input to avoid conflicts
+            
+            if (balances[index] < 0) { // if balance is less than 0, print notification for user
                 System.out.println(ANSI_RED + "There is an overdraft on your account. For payment support, contact the bank" + ANSI_GREEN); // if user balance is < 0, print notification in red
             }
-        } catch (InputMismatchException e) {
+        } catch (InputMismatchException e) { // if user input is not numeric, print the following
             System.out.println(ANSI_RED + "Something went wrong. Please contact the bank for support" + ANSI_RESET);
         }
     }
@@ -267,22 +270,23 @@ public class BankATMmachine {
         try { // try catch if user input is not valid, print error message and kick user back to menu
             double withdrawAmount; // create withdraw variable
 
-            System.out.println("Your current balance is: " + balances[index]); // print current user balance
+            System.out.println("\nYour current balance is: " + balances[index]); // print current user balance
 
             System.out.print("Enter withdrawal amount: "); // Ask user to enter how much to deposit
             withdrawAmount = input.nextDouble(); // assign userinput to depositAmount
-            debitStatement.add(withdrawAmount); // 
+            debitStatement.add(withdrawAmount); // add withdrawAmount to debitStatement array list
+//            System.out.println(ANSI_YELLOW + "Press enter to continue" + ANSI_RESET); // notify user to press enter to continue. clears the line in the background
             input.nextLine(); // clear user input to avoid conflict
 
             balances[index] -= withdrawAmount; // add withdrawAmount to user balance and overwrite balance
 
-            System.out.println("Balance: " + balances[index]); // print new user balance
+            System.out.println("\nUpdated Balance: " + balances[index] + "\n"); // print new user balance
 
-            if (balances[index] < 0) {
-                System.out.println(ANSI_RED + "There is an overdraft on your account. For payment support, contact the bank" + ANSI_GREEN); // if user balance is < 0, print notification in red
+            if (balances[index] < 0) { // check if the user balance is less than 0
+                System.out.println(ANSI_RED + "There is an overdraft on your account. For payment support, contact the bank" + ANSI_RESET); // if user balance is < 0, print notification in red
             }
-        } catch (InputMismatchException e) {
-            System.out.println(ANSI_RED + "Something went wrong. Please contact the bank for support" + ANSI_RESET);
+        } catch (InputMismatchException e) { // if user input is not numeric, print the following
+            System.out.println(ANSI_RED + "Something went wrong. If the issue persists, please contact the bank for support" + ANSI_RESET);
         }
     }
     // I FORGOT TO ADD LINES TO CHECK IF WITHDRAW IS GREATER THAN BALANCE & NO OVERDRAFT PERMS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -295,12 +299,12 @@ public class BankATMmachine {
     */
     static void bankStatement() {
         System.out.println("\n ===================================================");
-        System.out.println(" -=== Please see your recent transactions below ===- \n");
+        System.out.println(" -=== Please see your recent transactions below ===-");
 
         // Credit Section
-        System.out.println("\t\t -==Credit==-");
+        System.out.println("\n\t\t -==Credit==-");
         if (creditStatement.isEmpty()) {
-            System.out.println("No recent credit transactions");
+            System.out.println("\tNo recent credit transactions");
         } else {
             for (int i = 0; i < creditStatement.size(); i++) {
                 System.out.println("Transaction " + (i + 1) + ": " + ANSI_GREEN + creditStatement.get(i) + ANSI_RESET);
@@ -308,9 +312,9 @@ public class BankATMmachine {
         }
 
         // Debit Section
-        System.out.println("\t\t -==Debit==-");
+        System.out.println("\n\t\t -==Debit==-");
         if (debitStatement.isEmpty()) {
-            System.out.println("No recent debit transactions");
+            System.out.println("\tNo recent debit transactions");
         } else {
             for (int i = 0; i < debitStatement.size(); i++) {
                 System.out.println("Transaction " + (i + 1) + ": -" + ANSI_RED + debitStatement.get(i) + ANSI_RESET);
