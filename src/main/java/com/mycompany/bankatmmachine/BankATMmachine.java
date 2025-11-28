@@ -160,7 +160,7 @@ public class BankATMmachine {
             currPassword = input.nextLine(); // assign currPassword to user input
             if (currPassword.equals(passwords[index])) { // checking if currPassword matches existing password
                 currPassMatch = true; // change boolean to true if password is correct to exit loop
-                System.out.println(ANSI_GREEN+"Pass is correct"+ANSI_RESET); // display that the password is correct ADDED COLOUR
+                System.out.println(ANSI_GREEN+"Password is correct"+ANSI_RESET); // display that the password is correct ADDED COLOUR
                 break; // exit loop
             } else {
                 System.out.println(ANSI_RED+"Incorrect Password. Try again"+ANSI_RESET); // if password is incorrect display incorrect password try again and continue the loop ADDED COLOUR
@@ -168,7 +168,7 @@ public class BankATMmachine {
         } while (currPassMatch == false); // do block of code until password is correct and boolean is changed to true
 
         while (newPassMatch == false) { // loop for new password o this until person enter valid password and boolean is changed to true
-            System.out.println("Enter new password"); // display to user enter new password
+            System.out.print("Enter new password: "); // display to user enter new password
             newPassword = input.nextLine(); // assign user input to newPassword
             if (newPassword.equals(passwords[index])) { // compare password to the old one
                 System.out.println(ANSI_RED+"Passwords cannot be same as the old one"+ANSI_RESET); //ADDED COLOUR if password is the same as the old one, display to user password can't be the same as odl one and try again
@@ -220,7 +220,7 @@ public class BankATMmachine {
                 usernames[index] = newName;// IF NAME IS VALID OVERWRITE CURRENT USERNAME WITH NEW USERNAME
                 validChange = true;// CHANGE  VALID CHANGE TO TRUE TO EXIT LOOP
                 System.out.println(ANSI_GREEN+"Username was changed succesfully"+ANSI_RESET);// DISPLAY MESSAGE THAT NAME WAS CHANGED  SUCCESFULY
-                System.out.println("Your new Username is : " + usernames[index]);// DISPLAY NEW USERNAME
+                System.out.println("Your new Username is : " + usernames[index] + "\n");// DISPLAY NEW USERNAME
                 return;
             }
         }
