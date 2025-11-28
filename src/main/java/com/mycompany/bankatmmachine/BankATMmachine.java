@@ -98,20 +98,26 @@ public class BankATMmachine {
             System.out.println("4.Change Password"); // change password option
             System.out.println("5.Change Username"); // change username option
             System.out.println("6.Exit"); // exit ATM option
-            System.out.print("Enter your choice: "); // ask user to enter choice
+            System.out.print("\nEnter your choice: "); // ask user to enter choice
             choice = input.nextInt(); // assign user input to variable "choice"
             input.nextLine(); // clear user input to avoid conflict
             switch (choice) {
                 case 1: //  Francis - Statement Overdraft
-                    bankStatement();
+                    try {
+                        bankStatement(); // run bankStatement method to view recent transactions
+                    } catch (Exception e) {
+                        System.out.println(ANSI_RED + "There was an unexpected issue. If the issue persists, please contact the bank for support" + ANSI_RESET);
+                    }
+                    input.nextLine(); // clear user input to avoid conflict
                     break; // return to start of menu
+                    
                 case 2: // Francis - deposit
                     deposit(balances, index); // run deposit method
                     break; // return to start of menu
                         
                 case 3: // Francis - withdraw
                     if (overdraft[index] == false && balances[index] < 0) {
-                        System.out.println(ANSI_RED + "You balance is in overdraft. Please ammend to withdraw or contact the bank for support" + ANSI_RESET);
+                        System.out.println(ANSI_RED + "Your balance is in overdraft. Please ammend to withdraw or contact the bank for support" + ANSI_RESET);
                         break;
                     } else {
                         withdraw(balances, index); // run withdraw method
