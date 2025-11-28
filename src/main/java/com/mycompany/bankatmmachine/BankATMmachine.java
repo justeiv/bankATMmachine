@@ -1,5 +1,6 @@
 package com.mycompany.bankatmmachine;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -9,12 +10,16 @@ public class BankATMmachine {
     static final String ANSI_RESET = "\u001B[0m";
     static final String ANSI_RED = "\u001B[31m";
     static final String ANSI_GREEN = "\u001B[32m";
+    static ArrayList<Double> debitStatement = new ArrayList<Double>();
+    static ArrayList<Double> creditStatement = new ArrayList<Double>();
+
+
     public static void main(String[] args) {
         
     String[] usernames = {"Theo", "Mira", "Jasper", "John", "Amy", "Anna",}; // Array for valid username
     String[] passwords = {"pass1", "pass2", "pass3", "pass4", "pass4", "pass5"}; // Array for valid passwords
     double[] balances = {-1200.50, 25070.80, 5060.70, 15000.10, 7050.15, 2970.30}; // Array for balances matching user & pass indexes
-    boolean[] overdraft = {false, true, true, false, false, true}; // overdraft facility assigned to users        
+    boolean[] overdraft = {false, true, true, false, false, true}; // overdraft facility assigned to users
 
     int index = LogIn(usernames, passwords); // when login is successful, the index of username as password arrays is assigned to variable "index", this makes finding matching balance, etc easier
 
@@ -25,12 +30,13 @@ public class BankATMmachine {
     ============================================================================
                               Methods below this line
     ============================================================================
-     */
- /*
+    */
+    
+    /*
     ============================================================================
                               log in //Juste
     ============================================================================
-     */
+    */
     static int LogIn(String[] usernames, String[] passwords) { // method to check for successful login
         String name = null; // to compare user input to the usernames array and find the name
         String pass = null; // to compare user input to the password that is assigned to the user
@@ -97,7 +103,8 @@ public class BankATMmachine {
             input.nextLine(); // clear user input to avoid conflict
             switch (choice) {
                 case 1: //  Francis - Statement Overdraft
-
+                    bankStatement();
+                    break; // return to start of menu
                 case 2: // Francis - deposit
                     deposit(balances, index); // run deposit method
                     break; // return to start of menu
@@ -119,8 +126,9 @@ public class BankATMmachine {
                     break;
 
                 case 6: // Juste - Exit ATM
-                    System.out.println("Thank you for using our ATM:"); // thank user for using ATM
+                    System.out.println("Thank you for using our ATM"); // thank user for using ATM
                     exit = true; // change exit to true
+                    break;
 
                 default: // if user input doesn't equal 1-6, print invalid input |||||||| IF USER INPUT IS STRING THE PROGRAM CRASHES. FIX PLZZZZZZZZZZZZ-------------------------------------------------------------------
                     System.out.println(ANSI_RED+"Invalid input"+ANSI_RESET);//PRINT OUT THAT INPUT WAS NOT VALID + COL0UR
@@ -218,7 +226,7 @@ public class BankATMmachine {
     ============================================================================
      */
     
-    static void deposit(double[] balances, int index) { // this runs twice in the below method. kept up here to keep code tidy instead of doubling up
+    static void deposit(double[] balances, int index) { // method giving user the ability to credit their account
         
         try { // try catch if user input is not valid, print error message and kick user back to menu
             double depositAmount; // create deposit variable
@@ -226,7 +234,8 @@ public class BankATMmachine {
             System.out.println("Your current balance is: " + balances[index]); // print current user balance
 
             System.out.print("Enter deposit amount: "); // Ask user to enter how much to deposit
-            depositAmount = input.nextDouble(); // assign userinput to depositAmount
+            depositAmount = input.nextDouble(); // assign user input to depositAmount
+            creditStatement.add(depositAmount); // add depositAmount to creditStatement array list
             input.nextLine(); // clear user input to avoid conflict
 
             balances[index] += depositAmount; // add depositAmount to user balance and overwrite balance
@@ -247,7 +256,7 @@ public class BankATMmachine {
     ============================================================================
     */
 
-    static void withdraw(double[] balances, int index) { // this runs twice in the below method. kept up here to keep code tidy instead of doubling up
+    static void withdraw(double[] balances, int index) { // method giving user the ability to debit their account
 
         try { // try catch if user input is not valid, print error message and kick user back to menu
             double withdrawAmount; // create withdraw variable
@@ -256,6 +265,7 @@ public class BankATMmachine {
 
             System.out.print("Enter withdrawal amount: "); // Ask user to enter how much to deposit
             withdrawAmount = input.nextDouble(); // assign userinput to depositAmount
+            debitStatement.add(withdrawAmount); // 
             input.nextLine(); // clear user input to avoid conflict
 
             balances[index] -= withdrawAmount; // add withdrawAmount to user balance and overwrite balance
@@ -269,22 +279,25 @@ public class BankATMmachine {
             System.out.println(ANSI_RED + "Something went wrong. Please contact the bank for support" + ANSI_RESET);
         }
     }
-
+    // I FORGOT TO ADD LINES TO CHECK IF WITHDRAW IS GREATER THAN BALANCE & NO OVERDRAFT PERMS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
-
-/*   statement display similar to income/expenditure account book
-        WITHDRAW 1 | DEPOSIT 1
-        WITHDRAW 2 | DEPOSIT 2
-        WITHDRAW 3 | DESPOTI 3
-        etc etc etc
-*/
 
     /*
     ============================================================================
                               Bank Statement // Francis
     ============================================================================
     */
-
+    static void bankStatement() {
+        System.out.println("-=== Please see your recent transactions below ===-");
+        System.out.println("\t\t -==Credit==-");
+        for(int i = 0; i < creditStatement.size(); i++) {
+            System.out.println("Transaction " + (i+1) + ": " + ANSI_GREEN + creditStatement.get(i) + ANSI_RESET);
+        }
+        System.out.println("\t\t -==Debit==-");
+        for (int i = 0; i < debitStatement.size(); i++) {
+            System.out.println("Transaction " + (i + 1) + ": -" + ANSI_RED + debitStatement.get(i) + ANSI_RESET);
+        }
+    }
 /*	**create  6 users  each user needs to have name password balance** overdraft(*overdraft for  3 users only* * no limit for overdraft*)
 	do method for login that would return the position of the name in array(no more than 3 attempts to log in**
 	** display menu with options (view bank statement, change password**, change name deposit money, withdraw money, exit. loop until user  chooses to exit**
