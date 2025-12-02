@@ -22,7 +22,7 @@ public class BankATMmachine {
     public static void main(String[] args) {
         
     String[] usernames = {"Theo", "Mira", "Jasper", "John", "Amy", "Anna",}; // Array for valid username
-    String[] passwords = {"pass1", "pass2", "pass3", "pass4", "pass4", "pass5"}; // Array for valid passwords
+    String[] passwords = {"pass1", "pass2", "pass3", "pass4", "pass5", "pass6"}; // Array for valid passwords
     double[] balances = {1200.50, 25070.80, 5060.70, 15000.10, 7050.15, 2970.30}; // Array for balances matching user & pass indexes
     boolean[] overdraft = {false, true, true, false, false, true}; // overdraft facility assigned to users
 
@@ -50,8 +50,11 @@ public class BankATMmachine {
         boolean validLogin = false; // validLogin expected to fail from beginning
         boolean userFound = false; // userFound expected to fail from beginning
         int loggedUserIndex = -1; // starts as -1 to avoid invalid accidental login until it is overwritten after successful login
+        System.out.println("============================");
+        System.out.println("      === ATM LOGIN ===      ");
+        System.out.println("============================");
         do { // while loop to get persons username
-            System.out.print("Enter your username: "); // asks user to enter username
+            System.out.println("Enter your username: "); // asks user to enter username
             name = input.nextLine(); // input to compare users input to the array
             for (int i = 0; i < usernames.length; i++) { // loop through array to find username
                 if (name.equals(usernames[i])) {
@@ -71,7 +74,10 @@ public class BankATMmachine {
             System.out.print("Enter Password: "); // ask user to enter username
             pass = input.nextLine(); // input for password to compare it to the original password
             if (pass.equals(passwords[loggedUserIndex])) {// if password matches quit the loop
-                System.out.println(ANSI_GREEN+"Login was successful"+ANSI_RESET); // user notified of successful login ADDED COLOUR
+                System.out.println("\n-------------------------------");
+                System.out.println(ANSI_GREEN + "   Login Successful!" + ANSI_RESET);// user notified of successful login ADDED COLOUR
+                System.out.println("-------------------------------\n");
+ 
                 validLogin = true; // validLogin switch to true
                 break; // exit loop
             } else {
@@ -96,20 +102,23 @@ public class BankATMmachine {
     static void menu(String[] usernames, String[] passwords, boolean[] overdraft, double[] balances, int index) {
         int choice=-1; // create choice variable, used for user input in menu
         boolean exit = false; // assume user doesn't want to exit once ATM starts
-        boolean exitDep = false; // assume user doesn't want to exit deposit method from the start of depositOption();
-        System.out.println("\nWelcome " + usernames[index]);// welcome user
+        System.out.println("===============================");
+        System.out.println(" WELCOME TO ATM "+ usernames[index]);//welcome user
+        System.out.println("===============================");
+
         do {
+            System.out.println("\n========== MAIN MENU ==========");
+            System.out.println();
             System.out.println("1.Bank Statement"); // view bank statement option
             System.out.println("2.Deposit"); // deposit money option
             System.out.println("3.Withdraw"); // withdraw money option
             System.out.println("4.Change Password"); // change password option
             System.out.println("5.Change Username"); // change username option
             System.out.println("6.Exit"); // exit ATM option
-            
-            System.out.print("Enter your choice: "); // ask user to enter choice
-            try{
-
+            System.out.println();
+            System.out.println("===================================");
             System.out.print("\nEnter your choice: "); // ask user to enter choice
+            try{
             choice = input.nextInt(); // assign user input to variable "choice"
             input.nextLine(); // clear user input to avoid conflict
             }catch(InputMismatchException e){// added to catch invalid input so it wouldnt break the program
@@ -134,7 +143,7 @@ public class BankATMmachine {
                         
                 case 3: // Francis - withdraw
                     if (overdraft[index] == false && balances[index] < 0) {
-                        System.out.println(ANSI_RED + "Your balance is in overdraft. Please ammend to withdraw or contact the bank for support" + ANSI_RESET);
+                        System.out.println(ANSI_RED + "Your balance is in overdraft. Please amend to withdraw or contact the bank for support" + ANSI_RESET);
                         break;
                     } else {
                         withdraw(balances, overdraft, index); // run withdraw method
@@ -171,11 +180,13 @@ public class BankATMmachine {
         String newPassword = null; // start new password as null to avoid conflicts
         boolean currPassMatch = false; // assume password starts as incorrect
 
-        boolean newPassMatch = false;// false till eprson enteres valid password
+        boolean newPassMatch = false;// false till person enteres valid password
         String answer=null;
 
         
-
+        System.out.println("\n===============================");
+        System.out.println("        CHANGE PASSWORD        ");
+        System.out.println("===============================\n");
 
         do {
             System.out.print("Enter Your Current Password: "); // ask user to enter current password
@@ -213,8 +224,9 @@ public class BankATMmachine {
                     
                 }
             }    
-        }        
+        }       System.out.println("\n-------------------------------"); 
                 System.out.println(ANSI_GREEN+"Password was changed succesfully"+ANSI_RESET);// if person confirms he wants to chnage erson this prints out password was changed succefully
+                System.out.println("\n-------------------------------");
                 passwords[index] = newPassword; // boolean changed to tre to exit loop
                 return;
             
@@ -229,15 +241,20 @@ public class BankATMmachine {
     static void changeUsername(String[] usernames, String[] passwords, int index) {//method for chaging username
         String currentName = null;//so user could confirm their current username      
         String newName = null;// for person to input new name
-        boolean validChange = false;//to exit loop  when user enter valid name
-        boolean validName = false;//to exit loop when user types in valid name
+        boolean validChange = false;//tto exit loop when user confirms name change
+        boolean validName = false;//to exit loop  when user enter valid name
+          
+        System.out.println("\n===============================");
+        System.out.println("        CHANGE USERNAME        ");
+        System.out.println("===============================\n");
+        
         while (validName == false) {//loop to confirm current username
 
             System.out.println("Enter your current Username");// ask user to enter current username
             currentName = input.nextLine();//input line for user to enter current name
             if (currentName.equals(usernames[index])) {// checking if person entered valid  username
                 System.out.println(ANSI_GREEN+"Username confirmed"+ANSI_RESET);//ADDED COLOUR if username is valid display message username confirmed
-                validName = true; // changfin boolean value to true when found
+                validName = true; // changing boolean value to true when found
                 break;//exit loop
             } else {
                 System.out.println(ANSI_RED+"Invalid Username. Try again"+ANSI_RESET);//ADDED COLOUR if username invalid display invalid username try again
@@ -247,7 +264,7 @@ public class BankATMmachine {
         while (validChange == false) {//loop to change username
             System.out.println("Enter new username");// display to user enter new username
             newName = input.nextLine();//input line to enter new username
-            if (newName.equals(currentName)) {//CHECK IF NAME  EQUALS CURRENT NAME
+            if (newName.equalsIgnoreCase(currentName)) {//CHECK IF NAME  EQUALS CURRENT NAME
                 System.out.println(ANSI_RED+"Username cannot be the same as the old one"+ANSI_RESET);//ADDED COLOUR IF NAME IS SAME AS OLD ONE DISPLAY MESSAGE USERNAME CANNOT BE SAME AS OLD ONE 
                 continue;
             }
@@ -260,8 +277,12 @@ public class BankATMmachine {
                 }
                 usernames[index] = newName;// IF NAME IS VALID OVERWRITE CURRENT USERNAME WITH NEW USERNAME
                 validChange = true;// CHANGE  VALID CHANGE TO TRUE TO EXIT LOOP
+                System.out.println("\n-------------------------------");
                 System.out.println(ANSI_GREEN+"Username was changed successfully"+ANSI_RESET);// DISPLAY MESSAGE THAT NAME WAS CHANGED  SUCCESFULY
-                System.out.println("Your new Username is : " + usernames[index] + "\n");// DISPLAY NEW USERNAME
+                System.out.println("-------------------------------\n");
+                System.out.println("*******************************");
+                System.out.println("Your new Username is : " + usernames[index] + "");// DISPLAY NEW USERNAME
+                System.out.println("*******************************");
                 return;
             }
         }
@@ -276,27 +297,36 @@ public class BankATMmachine {
     static boolean confirm(String[] usernames, String[] passwords, int index, String newName) {// small method to confirm the username change
         String answer = null;// to store yes or no answer
         String currPassword = null;// to store current password
-        boolean change=false;// to return true or false value if person want to change the name or not
-        System.out.println("Are you sure you want to change username to " + newName + " yes/no");// display question to user if they really want ot chnage username
+        String changeAns=null;// to collect if person wants to try again to enter password
+        
+        System.out.println("\nAre you sure you want to change username to " + newName + " yes/no\n");// display question to user if they really want ot chnage username
 
         
         answer = input.nextLine().toLowerCase();// to take input for answer
         switch (answer) {// switch for yes no asnwers
             case "yes":// if person says yes
                 do {
-                    System.out.print("Enter Your Current Password: "); // ask user to enter current password
+                    System.out.print("Enter Your Current Password: \n"); // ask user to enter current password
                     currPassword = input.nextLine(); // input for user to enter password
                     if (currPassword.equals(passwords[index])) { // checking if enetered Password matches existing password
-                        System.out.println(ANSI_GREEN + "Password is correct" + ANSI_RESET); // display that the password is correct ADDED COLOUR
+                        System.out.println(ANSI_GREEN + "\nPassword is correct\n" + ANSI_RESET); // display that the password is correct ADDED COLOUR
                        return true; // return true value if person want to change
                         
                     } else {
-                        System.out.println(ANSI_RED + "Incorrect Password. Try again" + ANSI_RESET); // if password is incorrect display incorrect password try again and continue the loop ADDED COLOUR
+                        System.out.println(ANSI_RED + "Incorrect Password.  DO you want to try again. yes/no\n" + ANSI_RESET); // if password is incorrect display incorrect password try again and continue the loop ADDED COLOUR
+                        changeAns=input.nextLine().toLowerCase();
+                        if(changeAns.equals("yes")){
+                          continue; 
+                        }else{
+                             System.out.println("\nUsername change is cancelled\n");
+                            return false;
+                        }
                     }
-                    break;
+                    
                 } while (!currPassword.equals(passwords[index]));// loop continues until user enter right password
+                break;
             case "no":// if person says no it bring back to menu
-                System.out.println("Username change is cancelled");// if user types in no
+                System.out.println("\nUsername change is cancelled\n");// if user types in no
                 return false;// return false value if person doesnt want to change
             default:// if person types in wrong answer
                 System.out.println("Invalid input");//if person types invalid answers prints invalid input
@@ -354,7 +384,7 @@ public class BankATMmachine {
             withdrawAmount = input.nextDouble(); // assign userinput to depositAmount
             debitStatement.add(withdrawAmount); // add withdrawAmount to debitStatement array list
 
-//            input.nextLine(); // clear user input to avoid conflict
+            input.nextLine(); // clear user input to avoid conflict
 
             if(withdrawAmount > balances[index] && overdraft[index] == false) { // if user doesn't have overdraft perms and tries withdrawing more than their balance, print below notification
                 System.out.println(ANSI_RED + "\nInsufficient funds\n" + ANSI_RESET); // user notified of insufficient funds
