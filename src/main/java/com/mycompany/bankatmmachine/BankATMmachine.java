@@ -7,35 +7,30 @@ import java.util.Scanner;
 public class BankATMmachine {
 
     static Scanner input = new Scanner(System.in);  // create "input" scanner for user input
-<<<<<<< HEAD
+    static final String ANSI_YELLOW = "\u001B[33m"; // create variable to change text colour to yellow
     static final String ANSI_RESET = "\u001B[0m";
     static final String ANSI_RED = "\u001B[31m";
     static final String ANSI_GREEN = "\u001B[32m";
     static InputMismatchException e;
-=======
-    static final String ANSI_RESET = "\u001B[0m"; // create variable to reset text colour
-    static final String ANSI_RED = "\u001B[31m"; // create variable to change text colour to red
-    static final String ANSI_YELLOW = "\u001B[33m"; // create variable to change text colour to yellow
-    static final String ANSI_GREEN = "\u001B[32m"; // create variable to change text colour to green
+
+    
     static ArrayList<Double> debitStatement = new ArrayList<Double>();
     static ArrayList<Double> creditStatement = new ArrayList<Double>();
 
 
->>>>>>> 7b2fd636d30e5484a15961a1ef25a872a58f9177
+
     public static void main(String[] args) {
         
     String[] usernames = {"Theo", "Mira", "Jasper", "John", "Amy", "Anna",}; // Array for valid username
     String[] passwords = {"pass1", "pass2", "pass3", "pass4", "pass4", "pass5"}; // Array for valid passwords
-    double[] balances = {-1200.50, 25070.80, 5060.70, 15000.10, 7050.15, 2970.30}; // Array for balances matching user & pass indexes
+    double[] balances = {1200.50, 25070.80, 5060.70, 15000.10, 7050.15, 2970.30}; // Array for balances matching user & pass indexes
     boolean[] overdraft = {false, true, true, false, false, true}; // overdraft facility assigned to users
 
     int index = LogIn(usernames, passwords); // when login is successful, the index of username as password arrays is assigned to variable "index", this makes finding matching balance, etc easier
 
-<<<<<<< HEAD
-        menu(usernames, passwords, overdraft, balances, index  ); // run menu method after successful login
-=======
+
     menu(usernames, passwords, overdraft, balances, index); // run menu method after successful login
->>>>>>> 7b2fd636d30e5484a15961a1ef25a872a58f9177
+
     }
 
     /*
@@ -76,7 +71,7 @@ public class BankATMmachine {
             System.out.print("Enter Password: "); // ask user to enter username
             pass = input.nextLine(); // input for password to compare it to the original password
             if (pass.equals(passwords[loggedUserIndex])) {// if password matches quit the loop
-                System.out.println(ANSI_GREEN+"Login was succesful"+ANSI_RESET); // user notified of successful login ADDED COLOUR
+                System.out.println(ANSI_GREEN+"Login was successful"+ANSI_RESET); // user notified of successful login ADDED COLOUR
                 validLogin = true; // validLogin switch to true
                 break; // exit loop
             } else {
@@ -110,12 +105,11 @@ public class BankATMmachine {
             System.out.println("4.Change Password"); // change password option
             System.out.println("5.Change Username"); // change username option
             System.out.println("6.Exit"); // exit ATM option
-<<<<<<< HEAD
+            
             System.out.print("Enter your choice: "); // ask user to enter choice
             try{
-=======
+
             System.out.print("\nEnter your choice: "); // ask user to enter choice
->>>>>>> 7b2fd636d30e5484a15961a1ef25a872a58f9177
             choice = input.nextInt(); // assign user input to variable "choice"
             input.nextLine(); // clear user input to avoid conflict
             }catch(InputMismatchException e){// added to catch invalid input so it wouldnt break the program
@@ -159,7 +153,7 @@ public class BankATMmachine {
                     exit = true; // change exit to true
                     break;
 
-                default: // if user input doesn't equal 1-6, print invalid input |||||||| IF USER INPUT IS STRING THE PROGRAM CRASHES. FIX PLZZZZZZZZZZZZ-------------------------------------------------------------------
+                default: // if user input doesn't equal 1-6, print invalid input
                     System.out.println(ANSI_RED+"Invalid input"+ANSI_RESET);//PRINT OUT THAT INPUT WAS NOT VALID + COL0UR
                     break;
             
@@ -169,20 +163,20 @@ public class BankATMmachine {
 
     /*
     ============================================================================
-                              Change  password//Juste
+                              Change  password // Juste
     ============================================================================
      */
     static void changePass(String[] usernames, String[] passwords, int index) { // method to change password
         String currPassword = null; // start current password as null to avoid conflicts
         String newPassword = null; // start new password as null to avoid conflicts
         boolean currPassMatch = false; // assume password starts as incorrect
-<<<<<<< HEAD
+
         boolean newPassMatch = false;// false till eprson enteres valid password
         String answer=null;
-=======
-        boolean newPassMatch = false; // assume new passwords don't match from beginning
 
->>>>>>> 7b2fd636d30e5484a15961a1ef25a872a58f9177
+        
+
+
         do {
             System.out.print("Enter Your Current Password: "); // ask user to enter current password
             currPassword = input.nextLine(); // input for user to enter password
@@ -211,7 +205,7 @@ public class BankATMmachine {
                     break;// break out of loop
                 
                 }else if(answer.equals("no")){// if asnwer is no
-                    System.out.println("Pasword change is cancelled");//if persons types no pasword change is cancelled
+                    System.out.println("Password change is cancelled");//if persons types no pasword change is cancelled
                     return;//returns to menu
                 
                 }else{
@@ -229,7 +223,7 @@ public class BankATMmachine {
 
     /*
     ============================================================================
-                             Change Username// Juste
+                             Change Username //  Juste
     ============================================================================
      */
     static void changeUsername(String[] usernames, String[] passwords, int index) {//method for chaging username
@@ -266,7 +260,7 @@ public class BankATMmachine {
                 }
                 usernames[index] = newName;// IF NAME IS VALID OVERWRITE CURRENT USERNAME WITH NEW USERNAME
                 validChange = true;// CHANGE  VALID CHANGE TO TRUE TO EXIT LOOP
-                System.out.println(ANSI_GREEN+"Username was changed succesfully"+ANSI_RESET);// DISPLAY MESSAGE THAT NAME WAS CHANGED  SUCCESFULY
+                System.out.println(ANSI_GREEN+"Username was changed successfully"+ANSI_RESET);// DISPLAY MESSAGE THAT NAME WAS CHANGED  SUCCESFULY
                 System.out.println("Your new Username is : " + usernames[index] + "\n");// DISPLAY NEW USERNAME
                 return;
             }
@@ -422,13 +416,13 @@ public class BankATMmachine {
 
 
  */
-<<<<<<< HEAD
+
 /*BANK STATEMENT IDEA  you could put the counter in deposit and withdraw  and count how many times 
 it was deposited and withdrawed  then put the amounts in the array
 and in statement just print  like "system.out.println(+money from array+"was withdrawed / deposited ")
 with forloop int i = 0 ; i<deposit/withdrawCount;i++ so it would print it the amount of times it was  
 withdrawed or deposited
 */
-=======
+
 }
->>>>>>> 7b2fd636d30e5484a15961a1ef25a872a58f9177
+
