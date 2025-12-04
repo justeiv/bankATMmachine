@@ -8,13 +8,13 @@ public class BankATMmachine {
 
     static Scanner input = new Scanner(System.in);  // create "input" scanner for user input
     static final String ANSI_YELLOW = "\u001B[33m"; // create variable to change text colour to yellow
-    static final String ANSI_RESET = "\u001B[0m";
-    static final String ANSI_RED = "\u001B[31m";
-    static final String ANSI_GREEN = "\u001B[32m";
+    static final String ANSI_RESET = "\u001B[0m"; // create variable to reset text colour
+    static final String ANSI_RED = "\u001B[31m"; // create variable to change text colour to red
+    static final String ANSI_GREEN = "\u001B[32m"; // create variable to change text colour to green
     static InputMismatchException e;
 
-    static ArrayList<Double> debitStatement = new ArrayList<Double>();
-    static ArrayList<Double> creditStatement = new ArrayList<Double>();
+    static ArrayList<Double> debitStatement = new ArrayList<Double>(); // create dynamic array tracking withdrawals
+    static ArrayList<Double> creditStatement = new ArrayList<Double>(); // create dyamic array tracking deposits
 
     public static void main(String[] args) {
 
@@ -49,7 +49,7 @@ public class BankATMmachine {
         System.out.println("      === ATM LOGIN ===      ");
         System.out.println("============================");
         do { // while loop to get persons username
-            System.out.println("Enter your username: "); // asks user to enter username
+            System.out.print("Enter your username: "); // asks user to enter username
             name = input.nextLine(); // input to compare users input to the array
             for (int i = 0; i < usernames.length; i++) { // loop through array to find username
                 if (name.equals(usernames[i])) {
@@ -343,6 +343,15 @@ public class BankATMmachine {
 
             System.out.print("Enter deposit amount: "); // Ask user to enter how much to deposit
             depositAmount = input.nextDouble(); // assign user input to depositAmount
+            
+            if (depositAmount <= 0) { // if user input <= 0, keep running the below block until user input > 0
+                do{
+                    System.out.println(ANSI_RED + "\n-==AMOUNT MUST BE GREATER THAN 0=-" + ANSI_RESET);
+                    System.out.print("\nEnter deposit amount: ");
+                    depositAmount = input.nextDouble();
+                } while (depositAmount <= 0);
+            }
+            
             creditStatement.add(depositAmount); // add depositAmount to creditStatement array list
 
             input.nextLine(); // clear user input to avoid conflicts
@@ -373,6 +382,15 @@ public class BankATMmachine {
 
             System.out.print("Enter withdrawal amount: "); // Ask user to enter how much to deposit
             withdrawAmount = input.nextDouble(); // assign userinput to depositAmount
+            
+            if (withdrawAmount <= 0) { // if user input <= 0, keep running the below block until user input > 0
+                do {
+                    System.out.println(ANSI_RED + "\n-==AMOUNT MUST BE GREATER THAN 0=-" + ANSI_RESET);
+                    
+                    System.out.print("\nEnter withdrawal amount: ");
+                    withdrawAmount = input.nextDouble();
+                } while (withdrawAmount <= 0);
+            }
             debitStatement.add(withdrawAmount); // add withdrawAmount to debitStatement array list
 
             input.nextLine(); // clear user input to avoid conflict
