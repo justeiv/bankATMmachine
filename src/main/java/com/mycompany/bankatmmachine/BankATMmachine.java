@@ -391,14 +391,15 @@ public class BankATMmachine {
                     withdrawAmount = input.nextDouble();
                 } while (withdrawAmount <= 0);
             }
-            debitStatement.add(withdrawAmount); // add withdrawAmount to debitStatement array list
-
+            
             input.nextLine(); // clear user input to avoid conflict
 
             if (withdrawAmount > balances[index] && overdraft[index] == false) { // if user doesn't have overdraft perms and tries withdrawing more than their balance, print below notification
                 System.out.println(ANSI_RED + "\nInsufficient funds\n" + ANSI_RESET); // user notified of insufficient funds
                 return; // return to menu
             } else {
+                debitStatement.add(withdrawAmount); // add withdrawAmount to debitStatement array list
+
                 balances[index] -= withdrawAmount; // add withdrawAmount to user balance and overwrite balance
             }
             System.out.println("\nUpdated Balance: " + balances[index] + "\n"); // print new user balance
